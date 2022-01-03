@@ -6,42 +6,24 @@ import (
 
 	"github.com/umedjon-programm/bank/v2/pkg/types"
 )
-func TestCategoriesAvg(t *testing.T) {
-	
- payments:=[]types.Payment{
-		 {
-			 ID: 1,
-			 Amount: 30000,
-			 Category: "auto",
-		 },
-		 {
-			ID: 1,
-			Amount: 15000,
-			Category: "food",
-		},
-		{
-			ID: 1,
-			Amount: 10000,
-			Category: "auto",
-		},
-		{
-			ID: 1,
-			Amount: 20000,
-			Category: "auto",
-		},
-		{
-			ID: 1,
-			Amount: 25000,
-			Category: "fun",
-		},
-
-	 }
+func TestPeriodsDynamic(t *testing.T) {
+	f:=map[types.Category] types.Money{
+		"auto": 10,
+		"food":20,
+	}
+	s:=map[types.Category] types.Money{
+		"auto":10,
+		"food": 25,
+		"mobile":5,
+		
+	}
 	 expected:=map[types.Category]types.Money{
-		 "auto":20000,
-		 "food":15000,
-		 "fun":25000,
+		 "auto":0,
+		 "food":5,
+		 "mobile":5,
+		 
 		}
-		result:=CategoriesAvg(payments)
+		result:=PeriodsDynamic(f,s)
 		if !reflect.DeepEqual(expected,result){
 			t.Errorf("invalid result, expected: %v, actual: %v", expected, result)
 		}

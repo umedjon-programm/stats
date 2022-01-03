@@ -2,16 +2,16 @@ package stats
 import(
 	"github.com/umedjon-programm/bank/v2/pkg/types"
 )
-func CategoriesAvg(payments []types.Payment)map[types.Category]types.Money{
-	categoris:= map[types.Category]types.Money{}
-	lencat:=map[types.Category]int64{}
-
-	for _,cat:=range payments{
-		categoris[cat.Category]+=cat.Amount
-		lencat[cat.Category]++;
+func PeriodsDynamic(first map[types.Category]types.Money, second map[types.Category]types.Money,) map[types.Category]types.Money {
+	result:=map[types.Category]types.Money{}
+	if len(first)>len(second){
+	for key:=range first{
+		result[key]=second[key]-first[key]
 	}
-	for d,c:=range categoris{
-		categoris[d]=c/types.Money(lencat[d])
-	}
-	return categoris
+ } else{
+	 for key:=range second{
+		 result[key]=second[key]-first[key]
+	 }
+ }
+	return result
 }
